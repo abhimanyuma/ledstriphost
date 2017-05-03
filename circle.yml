@@ -1,0 +1,13 @@
+machine:
+  timezone: UTC
+
+dependencies:
+  cache_directories:
+    - ~/.platformio/
+  pre:
+    - pip install platformio
+    - platformio lib install fastled
+
+test:
+  override:
+    - platformio run
