@@ -20,23 +20,27 @@ int count = 0;
 void setup()
 {
   // Init fastled
-  FastLED.addLeds<WS2812, DATA_PIN, BGR>(leds, NUM_LEDS);
+  pinMode(LED_BUILTIN, OUTPUT);
+
+  FastLED.addLeds<WS2812, DATA_PIN>(leds, NUM_LEDS);
+  for (int i=0;i<NUM_LEDS;i++)
+    leds[i] = CRGB::White;
+  FastLED.show();
 }
 
 void loop()
 {
-  int i;
-  for (i=0;i<=count;i++)
+  // turn the LED on (HIGH is the voltage level)
+  digitalWrite(LED_BUILTIN, HIGH);
+  int i = 0;
+  for (;i<count;i++)
     leds[i] = CRGB::Blue;
-
   for (;i<NUM_LEDS;i++)
-    leds[i] = CRGB::White;
-
-  count++;
-  if (count >= NUM_LEDS)
-    count = 0;
+    leds[i] = CRGB::Green;
+  count = (count+1) % NUM_LEDS;
 
   FastLED.show();
-  // wait for a second
+  delay(100);
+  digitalWrite(LED_BUILTIN, LOW);
   delay(100);
 }
