@@ -15,7 +15,6 @@
 #define DATA_PIN 6
 
 CRGB leds[NUM_LEDS];
-int count = 0;
 
 void setup()
 {
@@ -30,17 +29,8 @@ void setup()
 
 void loop()
 {
-  // turn the LED on (HIGH is the voltage level)
-  digitalWrite(LED_BUILTIN, HIGH);
-  int i = 0;
-  for (;i<count;i++)
-    leds[i] = CRGB::Blue;
-  for (;i<NUM_LEDS;i++)
-    leds[i] = CRGB::Green;
-  count = (count+1) % NUM_LEDS;
-
-  FastLED.show();
-  delay(100);
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(100);
+  // create rainbow hue
+  static uint8_t hue = 0;
+  FastLED.showColor(CHSV(hue++, 255, 255)); 
+  delay(30);
 }
